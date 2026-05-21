@@ -1,0 +1,47 @@
+name: Full Eval Suite
+
+on:
+  workflow_dispatch:
+    inputs:
+      category:
+        description: "Eval category to run (leave blank for all)"
+        required: false
+        default: ""
+
+jobs:
+  run-evals:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run evals
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_MODEL: gpt-4o
+          JUDGE_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          JUDGE_MODEL: gpt-4o
+        run: |
+          if [ -n "${{ github.event.inputs.category }}" ]; then
+            python -m psych_evals.cli --category "${{ github.event.inputs.category }}" --output results/ci_run.json --no-colour
+          else
+            python -m psych_evals.cli --output results/ci_run.json --no-colour
+          fi
+
+      - name: Upload results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: eval-results
+          path: results/ci_run.json
