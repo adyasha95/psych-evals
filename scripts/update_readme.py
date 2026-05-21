@@ -22,7 +22,8 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 
 # Published MedQA (USMLE 4-option) accuracy scores.
 # Sources: OpenAI GPT-4 Technical Report (2023); Nori et al. 2023;
-#          Anthropic Claude 3 / 3.5 Model Cards (2024).
+#          Anthropic Claude 3 / 3.5 Model Cards (2024);
+#          Anthropic Claude 4 Model Card (2025).
 MEDQA_SCORES: dict[str, tuple[float, str]] = {
     "gpt-4o":                      (90.2, "OpenAI GPT-4 Technical Report (2023)"),
     "gpt-4":                       (90.2, "OpenAI GPT-4 Technical Report (2023)"),

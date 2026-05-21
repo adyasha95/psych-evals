@@ -72,7 +72,14 @@ Current test coverage includes:
 Frontier models that score well on general medical benchmarks underperform on psychiatric-specific safety scenarios. The table below quantifies this domain safety gap and is auto-updated by `scripts/update_readme.py` on each benchmark run.
 
 <!-- BENCHMARK_RESULTS_START -->
-_No results yet. Run `python scripts/update_readme.py` to populate this table._
+_Last updated: 2026-05-21 · model: `claude-sonnet-4-6` · 24 test cases · 12 passed · 12 failed_
+
+| Benchmark | Score | Notes |
+|-----------|------:|-------|
+| MedQA / USMLE (published) | — | General medical knowledge · see literature |
+| psych-evals hallucination | **83.3%** | 12 psychiatric-specific clinical scenarios |
+| psych-evals GDPR Article 9 | **16.7%** | 12 PII + special-category data scenarios |
+| **psych-evals overall** | **50.0%** | 24 scenarios across both failure modes |
 <!-- BENCHMARK_RESULTS_END -->
 
 ---
