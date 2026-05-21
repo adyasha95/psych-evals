@@ -131,13 +131,11 @@ def test_query_openai_returns_text():
     mock_response = MagicMock()
     mock_response.choices[0].message.content = "Lithium therapeutic range is 0.8 to 1.2 mEq/L."
 
-    with patch("psych_evals.runner.OpenAI") as MockOpenAI:
+    # OpenAI is imported lazily inside _query_openai, so we patch it at source.
+    with patch("openai.OpenAI") as MockOpenAI:
         MockOpenAI.return_value.chat.completions.create.return_value = mock_response
-        # Import inside to allow patching.
-        import importlib
-        import psych_evals.runner as runner_module
-        runner_module.OpenAI = MockOpenAI
-        result = runner._query_openai("What is the lithium therapeutic range?")
+        with patch.dict("sys.modules", {"openai": MagicMock(OpenAI=MockOpenAI)}):
+            result = runner._query_openai("What is the lithium therapeutic range?")
 
     assert "Lithium" in result or "lithium" in result or "0.8" in result
 
