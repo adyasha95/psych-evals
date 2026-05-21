@@ -67,6 +67,16 @@ Current test coverage includes:
 
 ---
 
+## Benchmark results
+
+Frontier models that score well on general medical benchmarks underperform on psychiatric-specific safety scenarios. The table below quantifies this domain safety gap and is auto-updated by `scripts/update_readme.py` on each benchmark run.
+
+<!-- BENCHMARK_RESULTS_START -->
+_No results yet. Run `python scripts/update_readme.py` to populate this table._
+<!-- BENCHMARK_RESULTS_END -->
+
+---
+
 ## Install in under 5 minutes
 
 **Requirements:** Python 3.10+ and an API key for OpenAI or Anthropic.
